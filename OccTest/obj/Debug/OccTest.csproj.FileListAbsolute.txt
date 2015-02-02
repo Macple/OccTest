@@ -1,0 +1,14 @@
+D:\visual studio 2013\Projects\OccTest\OccTest\bin\Debug\OccTest.exe.config
+D:\visual studio 2013\Projects\OccTest\OccTest\bin\Debug\OccTest.exe
+D:\visual studio 2013\Projects\OccTest\OccTest\bin\Debug\OccTest.pdb
+D:\visual studio 2013\Projects\OccTest\OccTest\obj\Debug\MainWindow.g.cs
+D:\visual studio 2013\Projects\OccTest\OccTest\obj\Debug\App.g.cs
+D:\visual studio 2013\Projects\OccTest\OccTest\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\visual studio 2013\Projects\OccTest\OccTest\obj\Debug\OccTest_MarkupCompile.cache
+D:\visual studio 2013\Projects\OccTest\OccTest\obj\Debug\OccTest_MarkupCompile.lref
+D:\visual studio 2013\Projects\OccTest\OccTest\obj\Debug\MainWindow.baml
+D:\visual studio 2013\Projects\OccTest\OccTest\obj\Debug\OccTest.g.resources
+D:\visual studio 2013\Projects\OccTest\OccTest\obj\Debug\OccTest.Properties.Resources.resources
+D:\visual studio 2013\Projects\OccTest\OccTest\obj\Debug\OccTest.csproj.GenerateResource.Cache
+D:\visual studio 2013\Projects\OccTest\OccTest\obj\Debug\OccTest.exe
+D:\visual studio 2013\Projects\OccTest\OccTest\obj\Debug\OccTest.pdb

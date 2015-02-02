@@ -1,0 +1,98 @@
+﻿<Window x:Class="OccTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:core="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:OccTest"
+        Title="GuestList Maciej Plewko" Height="393" Width="680"
+        Closing="Window_Closing">
+    <Window.Resources>
+        <ObjectDataProvider x:Key="GenderTypeDataProvider" 
+                        MethodName="GetValues" 
+                        ObjectType="{x:Type core:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local:GenderType"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
+    <Window.Content>
+        <Grid Margin="0,0,2,0">
+            <Grid.BindingGroup>
+                <BindingGroup/>
+            </Grid.BindingGroup>
+
+
+            <DataGrid x:Name="guestListDataGrid" HorizontalAlignment="Stretch" Margin="10,110,10,0" VerticalAlignment="Top" Height="Auto" FrozenColumnCount="1" AutoGenerateColumns="False" ClipToBounds="True" >
+                <DataGrid.Resources>
+                    <Style x:Key="errorStyle" TargetType="{x:Type TextBox}">
+                        <Setter Property="Padding" Value="-2"/>
+                        <Style.Triggers>
+                            <Trigger Property="Validation.HasError" Value="True">
+                                <Setter Property="Background" Value="Red"/>
+                                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.Resources>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" EditingElementStyle="{StaticResource errorStyle}" Binding="{Binding name}" />
+                    <DataGridTextColumn Header="Surname" EditingElementStyle="{StaticResource errorStyle}" Binding="{Binding surname}" />
+                    <DataGridComboBoxColumn Header="Gender" ItemsSource="{Binding Source={StaticResource GenderTypeDataProvider}}" SelectedItemBinding="{Binding gender}" />
+                    <DataGridTextColumn Header="Phone Number" EditingElementStyle="{StaticResource errorStyle}" Binding="{Binding phoneNumber}" />
+                    <DataGridCheckBoxColumn Header="Confirmed" Binding="{Binding reply}" />
+                    <DataGridTextColumn Header="Comment" Binding="{Binding comment}" MinWidth="100" />
+                </DataGrid.Columns>
+
+                <DataGrid.RowValidationRules>
+                    <local:GuestValidationRule ValidationStep="UpdatedValue"/>
+                </DataGrid.RowValidationRules>
+
+                <DataGrid.RowValidationErrorTemplate>
+                    <ControlTemplate>
+                        <Grid Margin="0,-2,0,-2" 
+                              ToolTip="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}},
+                            Path=(Validation.Errors)[0].ErrorContent}">
+                            <Ellipse StrokeThickness="0" Fill="Red" Width="{TemplateBinding FontSize}" Height="{TemplateBinding FontSize}" />
+                            <TextBlock Text="!" FontSize="{TemplateBinding FontSize}" FontWeight="Bold" Foreground="Yellow" HorizontalAlignment="Center"  />
+                        </Grid>
+                    </ControlTemplate>
+                </DataGrid.RowValidationErrorTemplate>
+
+            </DataGrid>
+            <DockPanel HorizontalAlignment="Left" Height="100" LastChildFill="False" VerticalAlignment="Top" Width="670">
+                <Menu Height="23" Name="menu" Width="Auto" DockPanel.Dock="Top" VerticalAlignment="Top" Background="{DynamicResource {x:Static SystemColors.MenuBrushKey}}">
+                    <MenuItem Header="File">
+                        <MenuItem Header="New Guest List" Name="newGuestList" Click="newGuestList_Click" >
+                        </MenuItem>
+                        <MenuItem Header="Load from XML" Name="loadGuestList" Click="loadGuestList_Click" >
+                        </MenuItem>
+                        <MenuItem Header="Save As XML" Name="saveGuestList" Click="saveGuestList_Click" >
+                        </MenuItem>
+                        <Separator />
+                        <MenuItem Header="Exit" Name="exit" Click="exit_Click"  />
+                    </MenuItem>
+                    <MenuItem Header="Help">
+                        <MenuItem Header="About Guest List" Name="about" Click="about_Click" >
+                        </MenuItem>
+                    </MenuItem>
+                </Menu>
+            </DockPanel>
+
+            <Label Content="Invited Guests:" Height="24" Margin="10,35,547,0" VerticalAlignment="Top"/>
+            <TextBox Name="guestNumberTextBox" Text="0" HorizontalAlignment="Left" Height="24" Margin="128,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" IsReadOnly="True"/>
+
+            <Label Content="Confirmed Guests:" Height="24" Margin="10,59,547,0" VerticalAlignment="Top"/>
+            <TextBox Name="confirmedGuestNumberTextBox" Text="0" HorizontalAlignment="Left" Height="24" Margin="128,61,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" IsReadOnly="True"/>
+
+            <Label Content="Male Number:" Height="24" Margin="197,35,372,0" VerticalAlignment="Top"/>
+            <TextBox Name="maleNumberTextBox" HorizontalAlignment="Left" Height="24" Margin="303,37,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="40" IsReadOnly="True"/>
+
+            <Label Content="Female Number:" Height="24" Margin="186,59,372,0" VerticalAlignment="Top"/>
+            <TextBox Name="femaleNumberTextBox" HorizontalAlignment="Left" Height="24" Margin="303,61,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="40" IsReadOnly="True"/>
+            <Button x:Name="checkGenderRatio" Content="Check gender ratio" HorizontalAlignment="Left" Margin="359,69,0,0" VerticalAlignment="Top" Width="226" Height="36" Click="checkGenderRatio_Click"/>
+            <TextBox x:Name="genderRatioTextBox" HorizontalAlignment="Left" Height="23" Margin="590,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" RenderTransformOrigin="0.129,0.913"/>
+            <Label Content="Max. desired % of gender disproportion:" HorizontalAlignment="Left" Height="27" Margin="359,37,0,0" VerticalAlignment="Top" Width="226"/>
+
+        </Grid>
+    </Window.Content>
+</Window>
